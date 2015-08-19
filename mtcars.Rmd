@@ -1,0 +1,15 @@
+---
+title: "Analysis of mileage differences between automatic and manual transmission cars"
+author: "Arun K Viswanathan"
+date: "August 19th 2015"
+output:
+  html_document:
+    theme: united
+    toc: yes
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+```
+
+
