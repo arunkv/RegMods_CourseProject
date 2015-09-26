@@ -7,15 +7,15 @@ output:
     theme: united
     toc: yes
   pdf_document:
-    toc: true
     highlight: zenburn
+    toc: no
 ---
 
 ```{r setup, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(cache = TRUE)
 ```
 
-```{r load-libraries, echo=TRUE, include=FALSE}
+```{r load-libraries, echo=FALSE, include=FALSE}
 library(UsingR)
 library(ggplot2)
 ```
@@ -33,10 +33,10 @@ mtcars <- mtcars[,c("mpg", "Transmission")]
 nobs <- nrow(mtcars)
 ```
 
-The *mtcars* data set contains `r nobs` observations of various variables including miles/(US) gallon *mpg* and transmission type. The data is loaded via the *UsingR* library and only the variables of interest are retained. Here is a description of the data:
+The *mtcars* data set contains `r nobs` observations of various variables including miles/(US) gallon *mpg* and transmission type. The data is loaded via the *UsingR* library and only the variables of interest are retained. Here is a summary of the data:
 
 ```{r describe-data, echo=FALSE}
-describe(mtcars)
+summary(mtcars)
 ```
 
 # Variation in MPG by transmission type
@@ -46,10 +46,7 @@ Here's the linear model that can be fit on the available data to show the variat
 ```{r fit-data, echo=TRUE}
 fit <- lm(mpg ~ Transmission, mtcars)
 summary(fit)
-slope_p <- summary(fit)$coefficients[2,4]
 ```
-
-As seen in the fit coefficients, the *p* value for the slope is **`r slope_p`** which is well within tolerance.
 
 ```{r predict-data, echo=TRUE}
 fit$coefficients
@@ -57,7 +54,19 @@ prediction <- predict(fit, newdata=data.frame(Transmission = c("Automatic", "Man
 diff <- prediction[2] - prediction[1]
 ```
 
-The predicted mpg for Automatic transmissions is **`r prediction[1]`** and for Manual transmissions **`r prediction[2]`**. So we can say that *Manual transmission cars have better mpg* by an average of **`r diff`**.
+The predicted mpg for Automatic transmissions is **`r prediction[1]`** and for Manual transmissions **`r prediction[2]`**. 
+
+# T-Test
+
+Although Manual transmission cars have a higher predicted mpg (higher by `r diff` mpg), we need to run a Student's t-test on the null-hypothesis that the difference in the means of the mpg between Automatic and Manual transmission cars is 0.
+
+```{r t-test-prediction, echo=TRUE}
+t.test(mtcars[mtcars$Transmission == "Automatic", "mpg"], mtcars[mtcars$Transmission == "Manual", "mpg"])
+```
+
+# Conclusion
+
+The p-value of the t-test is outside the confidence interval and so the null-hypothesis does not hold. In other words, **on average, Manual transmissions cars have better mpg than Automatic transmission cars**.
 
 # Appendix
 
@@ -67,9 +76,10 @@ The following section contains plots built using the *ggplot2* library. R code s
 
 ```{r mpg-by-transmission, echo=TRUE}
 g <- ggplot(data = mtcars, aes(x = Transmission, y = mpg, colour = Transmission)) 
-g <- g + geom_jitter() 
+g <- g + geom_boxplot() + coord_flip() + geom_jitter() 
 g <- g + ggtitle("Variation in mpg by transmission type")
 g <- g + xlab("Transmission Type")
 g <- g + ylab("Miles/(US) gallon - MPG")
 g
 ```
+

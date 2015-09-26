@@ -16,3 +16,7 @@ vignettes/*.pdf
 .Rproj.user
 mtcars_cache/
 mtcars_files/
+.RData
+mtcars.pdf
+rsconnect/
+
