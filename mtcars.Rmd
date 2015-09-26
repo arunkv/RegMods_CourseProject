@@ -3,12 +3,12 @@ title: "Analysis of mileage differences between automatic and manual transmissio
 author: "Arun K Viswanathan"
 date: "September 2015"
 output:
-  html_document:
-    theme: united
-    toc: yes
   pdf_document:
     highlight: zenburn
     toc: no
+  html_document:
+    theme: united
+    toc: yes
 ---
 
 ```{r setup, echo=FALSE, include=FALSE}
@@ -20,9 +20,9 @@ library(UsingR)
 library(ggplot2)
 ```
 
-# Overview
+# Executive Summary
 
-This paper looks at the "Motor Trend Car Road Tests" (*mtcars*) data from the 1974 *Motor Trend* US magazine and analyzes the differences in mileage (*mpg*) between automatic and manual transmission cars. 
+This paper looks at the "Motor Trend Car Road Tests" (*mtcars*) data from the 1974 *Motor Trend* US magazine and analyzes the differences in mileage (*mpg*) between automatic and manual transmission cars. The paper shows that Manual transmission cars have better mpg than Automatic transmission cars.
 
 # Exploratory Data Analysis
 
