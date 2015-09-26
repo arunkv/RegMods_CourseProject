@@ -13,3 +13,6 @@ vignettes/*.html
 vignettes/*.pdf
 
 *.html
+.Rproj.user
+mtcars_cache/
+mtcars_files/
