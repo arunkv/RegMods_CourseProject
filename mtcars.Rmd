@@ -3,12 +3,12 @@ title: "Analysis of mileage differences between automatic and manual transmissio
 author: "Arun K Viswanathan"
 date: "September 2015"
 output:
-  pdf_document:
-    highlight: zenburn
-    toc: no
   html_document:
     theme: united
     toc: yes
+  pdf_document:
+    highlight: zenburn
+    toc: no
 ---
 
 ```{r setup, echo=FALSE, include=FALSE}
